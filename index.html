@@ -136,7 +136,7 @@
         }
 
         .hero .highlight {
-            color: #f97316;
+            color: #fff !important;
         }
 
         .hero p {
@@ -713,7 +713,8 @@
 
     <section id="inicio" class="hero">
         <div class="hero-container">
-            <h1>Repuestos <span class="highlight">Automotrices</span> de Calidad</h1>
+            <h1>Repuestos <span class="highlight">Automotrices</span></h1>
+            <h2 style="font-size:1.5rem; font-weight:700; color:#fff; margin-bottom:1rem; text-shadow:0 1px 4px rgba(0,0,0,0.5);">Asiáticos de las mejores marcas</h2>
             <p>Especialistas en repuestos de marcas chinas con más de 2 años de experiencia. Calidad garantizada y envíos a todo Chile.</p>
             <a href="sobre-nosotros.html" class="btn-primary">
                 Sobre Nosotros
@@ -823,6 +824,9 @@
                         <div class="brand-item">
                             <img src="assets/img/marcas/zxauto-v.png" alt="ZX Auto" loading="lazy">
                         </div>
+                        <div class="brand-item"><img src="assets/img/marcas/geely.png" alt="Geely"></div>
+                        <div class="brand-item"><img src="assets/img/marcas/gacgroup.png" alt="GAC Group"></div>
+                        <div class="brand-item"><img src="assets/img/marcas/dfsk.png" alt="DFSK"></div>
                         
                         <!-- Segunda copia para efecto infinito -->
                         <div class="brand-item">
@@ -909,6 +913,9 @@
                         <div class="brand-item">
                             <img src="assets/img/marcas/zxauto-v.png" alt="ZX Auto" loading="lazy">
                         </div>
+                        <div class="brand-item"><img src="assets/img/marcas/geely.png" alt="Geely"></div>
+                        <div class="brand-item"><img src="assets/img/marcas/gacgroup.png" alt="GAC Group"></div>
+                        <div class="brand-item"><img src="assets/img/marcas/dfsk.png" alt="DFSK"></div>
                     </div>
                 </div>
                 
@@ -1185,12 +1192,15 @@
             const itemWidth = 210; // Ancho del item + margen
             const totalItems = track.children.length;
             const halfItems = Math.floor(totalItems / 2);
-            
+            const moveCount = 3; // Cuántos items se mueven por vez
+
+            let autoplayInterval = null;
+
             function moveCarousel(direction) {
                 if (isAnimating) return;
                 
                 isAnimating = true;
-                const moveAmount = direction === 'next' ? -itemWidth * 3 : itemWidth * 3;
+                const moveAmount = direction === 'next' ? -itemWidth * moveCount : itemWidth * moveCount;
                 currentPosition += moveAmount;
                 
                 // Efecto infinito
@@ -1220,14 +1230,33 @@
                     isAnimating = false;
                 }, 600);
             }
-            
-            prevBtn.addEventListener('click', () => moveCarousel('prev'));
-            nextBtn.addEventListener('click', () => moveCarousel('next'));
-            
+
+            function startAutoplay() {
+                if (autoplayInterval) clearInterval(autoplayInterval);
+                autoplayInterval = setInterval(() => moveCarousel('next'), 2500);
+            }
+
+            function stopAutoplay() {
+                if (autoplayInterval) clearInterval(autoplayInterval);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                moveCarousel('prev');
+                startAutoplay();
+            });
+            nextBtn.addEventListener('click', () => {
+                moveCarousel('next');
+                startAutoplay();
+            });
+
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+
             // Initialize position
             setTimeout(() => {
                 currentPosition = 0;
                 track.style.transform = `translateX(${currentPosition}px)`;
+                startAutoplay();
             }, 100);
         }
 
