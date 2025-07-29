@@ -52,6 +52,18 @@
             align-items: center;
             gap: 0.8rem;
         }
+        
+        .logo a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .logo a:hover {
+            opacity: 0.8;
+        }
         .logo img {
             width: 42px;
             height: 42px;
@@ -72,31 +84,6 @@
             color: #f97316;
             font-weight: 600;
             margin-top: 0.1rem;
-        }
-        .back-btn {
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 10px rgba(249, 115, 22, 0.13);
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .back-btn:hover {
-            background: #ea580c;
-            transform: translateY(-2px) scale(1.04);
-            box-shadow: 0 6px 18px rgba(249, 115, 22, 0.18);
-        }
-        .back-btn::before {
-            content: '←';
-            font-size: 1.1em;
-            margin-right: 0.3em;
         }
 
         /* Hero Section */
@@ -158,34 +145,80 @@
             padding: 3.5rem 0 2.5rem 0;
         }
         .about-container {
-            max-width: 1100px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 1rem;
             display: flex;
             flex-wrap: wrap;
             gap: 2.5rem;
             align-items: center;
             background: #fff;
-            border-radius: 18px;
+            border-radius: 30px;
             box-shadow: 0 4px 32px rgba(0,0,0,0.07);
         }
         .store-image {
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-            flex: 1 1 320px;
-            min-width: 260px;
-            max-width: 400px;
+            flex: 1 1 450px;
+            min-width: 350px;
+            max-width: 550px;
+            position: relative;
         }
-        .store-image img {
+        
+        .image-carousel {
+            position: relative;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 500px;
+        }
+        
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .carousel-image.active {
+            opacity: 1;
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #f97316;
+            transform: scale(1.2);
+        }
+        
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.9);
         }
         .about-content {
             color: #1f2937;
             flex: 2 1 400px;
-            padding: 1.5rem 1rem;
+            padding: 1.5rem 2rem;
+            text-align: justify;
         }
         .about-content h2 {
             font-family: 'Montserrat', sans-serif;
@@ -501,13 +534,14 @@
     <header class="header">
         <nav class="nav-container">
             <div class="logo">
-                <img src="assets/img/logo.png" alt="Adolmoi Repuestos Logo" onerror="this.style.display='none'">
-                <div class="logo-text">
-                    <h1>ADOLMOI REPUESTOS</h1>
-                    <p>Puerto Montt - Repuestos Automotrices</p>
-                </div>
+                <a href="index.html">
+                    <img src="assets/img/logo.png" alt="Adolmoi Repuestos Logo" onerror="this.style.display='none'">
+                    <div class="logo-text">
+                        <h1>ADOLMOI REPUESTOS</h1>
+                        <p>Puerto Montt - Repuestos Automotrices</p>
+                    </div>
+                </a>
             </div>
-            <a href="index.html" class="back-btn"> Volver al Inicio</a>
         </nav>
     </header>
 
@@ -521,14 +555,22 @@
     <main class="main-content">
         <div class="about-container">
             <div class="store-image">
-                <img src="assets/img/image.png" alt="Fachada de Adolmoi Repuestos Puerto Montt">
+                <div class="image-carousel">
+                    <img src="assets/img/fotofrente.jpg" alt="Fachada frontal de Adolmoi Repuestos" class="carousel-image" onerror="this.style.display='none'">
+                    <img src="assets/img/repuesto.jpg" alt="Repuestos Adolmoi" class="carousel-image" onerror="this.style.display='none'">
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                </div>
             </div>
 
             <div class="about-content">
-                <h2>Adolmoi Repuestos</h2>
-                <p class="about-intro">Empresa familiar especializada en repuestos automotrices de marcas chinas de alta calidad.</p>
-                <p class="about-description">Con más de 2 años de experiencia, nos hemos posicionado como referentes en Puerto Montt y la región de Los Lagos, ofreciendo productos de calidad respaldados por nuestra garantía.</p>
-                <p class="about-commitment">Nuestro compromiso va más allá de la venta: ofrecemos asesoramiento técnico especializado, garantía en todos nuestros productos y un servicio personalizado que se adapta a las necesidades específicas de cada cliente. Mantenemos un amplio stock de repuestos y accesorios para asegurar la disponibilidad inmediata de los productos que necesitas.</p>
+                <h2>Adolmoi Repuestos SPA</h2>
+                <p class="about-intro">En Adolmoi Repuestos SPA, somos una empresa local ubicada en la región de Los Lagos, en la hermosa ciudad de Puerto Montt. Nos especializamos en brindar repuestos de alta calidad y asesoramiento experto para una amplia variedad de marcas de origen chino e indio, con el objetivo de ofrecer soluciones confiables y eficientes para tu vehículo.</p>
+                <p class="about-description">Nuestro compromiso es ofrecerte un servicio cercano y personalizado. Primero, cotiza con nosotros y descubre por qué somos la opción preferida en la región. Contamos con un amplio stock de repuestos para marcas reconocidas como Autorad, BYD, BAIC, Brilliance, Changan, Chery, Chevrolet, DFM, DFSK, Dongfeng, Faw, Foton, GAC, Gonow, Geely, Great Wall, Hafei, Haima, Haval, JAC, Jetour, Jimbei, JMC, Karry, Kia, KYC, Lifan, Mahindra, Maxus, MG, Omoda, SMA, Suzuki, Tata, Yuejin, ZNA, Zotye, ZX Auto, entre otras.</p>
+                <p class="about-commitment">Visítanos o contáctanos para recibir asesoramiento personalizado y la mejor atención en repuestos de calidad. También realizamos envíos a otras ciudades. En Adolmoi Repuestos SPA, tu vehículo está en buenas manos.</p>
             </div>
         </div>
 
@@ -571,7 +613,7 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/56927895201" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/56933045676" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
         </svg>
@@ -606,12 +648,61 @@
             });
         }, observerOptions);
 
+        // Image Carousel functionality
+        function initImageCarousel() {
+            const images = document.querySelectorAll('.carousel-image');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            const slideInterval = 4000; // 4 segundos
+
+            // Verificar que hay imágenes visibles
+            const visibleImages = Array.from(images).filter(img => img.style.display !== 'none');
+            if (visibleImages.length === 0) {
+                console.log('No hay imágenes disponibles para el carrusel');
+                return;
+            }
+
+            function showSlide(index) {
+                // Ocultar todas las imágenes
+                images.forEach(img => img.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Mostrar la imagen actual
+                if (images[index] && images[index].style.display !== 'none') {
+                    images[index].classList.add('active');
+                    if (dots[index]) dots[index].classList.add('active');
+                }
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % images.length;
+                showSlide(currentSlide);
+            }
+
+            // Mostrar la primera imagen
+            showSlide(0);
+
+            // Cambio automático de imágenes
+            setInterval(nextSlide, slideInterval);
+
+            // Control manual con los dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                });
+            });
+        }
+
         // Observe animated elements
         document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll('.stat-card');
             animatedElements.forEach(el => {
                 observer.observe(el);
             });
+            
+            // Inicializar el carrusel de imágenes
+            initImageCarousel();
         });
     </script>
 </body>
